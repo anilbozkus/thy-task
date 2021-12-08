@@ -32,6 +32,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ListPlane(props) {
     const classes = useStyles();
+    const [checked, setChecked] = React.useState(true);
+
+    const handleChange = (event) => {
+      setChecked(event.target.checked);
+    };
 
     const DesignedSwitch = styled((props) => (
         <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
@@ -96,15 +101,20 @@ export default function ListPlane(props) {
                 </Typography>
                 <FormControlLabel
                     className={classes.checkboxArea}
-                    control={<DesignedSwitch sx={{ m: 2 }} defaultChecked />}
+                    control={<DesignedSwitch sx={{ m: 2 }} defaultChecked checked={checked}
+                    onChange={handleChange}/>}
                     label={<Typography variant="h6">Promosyon Kodu</Typography>} labelPlacement="start"
                 />
-                <Typography variant="body1">
-                    Promosyon Kodu seçeneği ile tüm Economy kabini Eco Fly paketlerini %50 indirimle satin alabilirsiniz.
-                </Typography>
-                <Typography variant="body1" className={classes.InfoText}>
-                    Promosyon Kodu seçeneği aktifken Eco Fly paketi haricinde seçim yapılmamaktadır.
-                </Typography>
+                {checked &&
+                <div>
+                    <Typography variant="body1">
+                        Promosyon Kodu seçeneği ile tüm Economy kabini Eco Fly paketlerini %50 indirimle satin alabilirsiniz.
+                    </Typography>
+                    <Typography variant="body1" className={classes.InfoText}>
+                        Promosyon Kodu seçeneği aktifken Eco Fly paketi haricinde seçim yapılmamaktadır.
+                    </Typography>
+                </div>
+                }
             </Container>
         </Grid>
     )
